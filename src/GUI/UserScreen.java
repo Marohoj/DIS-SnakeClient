@@ -6,11 +6,11 @@ package GUI;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class UserScreen extends JPanel{
+
     private JLabel lblInfo;
     private JButton btnStart;
     private JButton btnLoad;

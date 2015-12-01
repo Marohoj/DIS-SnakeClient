@@ -7,11 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
 
 public class LoginScreen extends JPanel {
 
