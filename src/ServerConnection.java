@@ -1,47 +1,33 @@
-import com.sun.security.ntlm.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 
 /**
  * Created by Mathias on 30-11-2015.
  */
 public class ServerConnection {
 
-    private String host;
-    private int port;
-
-    public ServerConnection(){
-
-        this.host = "http://localhost";
-        this.port = 8888;
-
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
+    private String hostUrl = "http://localhost";
+    private int portNumber = 8888;
 
     public String getHost(){
-        return host;
-    }
-
-    public void setPortNumber(int portNumber){
-        this.port = port;
+        return hostUrl;
     }
 
     public int getPort(){
-        return port;
+        return portNumber;
     }
 
     public String get(String path){
 
         Client c = Client.create();
-        
+        WebResource wResource = c.resource(getHost() + ":" + getPort() + "/api/" + path);
+        ClientResponse cResponse = wResource.type("application/json").get(ClientResponse.class);
 
+        String output = cResponse.getEntity(String.class);
+        System.out.print(output);
+
+        return output;
     }
-
-
-
-
-
-
 
 }

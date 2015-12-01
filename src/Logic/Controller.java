@@ -1,5 +1,9 @@
-import GUI.LoginScreen;
+package Logic;
+
 import GUI.ScreenFrame;
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * Created by Mathias on 30-11-2015.
@@ -9,11 +13,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-public class ActionListeners {
+public class Controller {
 
     private ScreenFrame frame = new ScreenFrame();
+    private ServerConnection server = new ServerConnection();
 
     public void run(){
+
+        server.get("");
 
         frame.show(frame.LOGIN);
 
@@ -48,23 +55,19 @@ public class ActionListeners {
 
                 frame.show(frame.LOGIN);
 
-            } else if (e.getSource() == frame.getUserScreen().getBtnStart()){
-
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
-
-            } else if (e.getSource() == frame.getUserScreen().getBtnLoad()){
-
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
-
-            } else if (e.getSource() == frame.getUserScreen().getBtnHighscore()){
-
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
-
             } else if (e.getSource() == frame.getUserScreen().getBtnCreate()){
 
                 JOptionPane.showMessageDialog(frame, "Function unavailable");
 
-            } else if (e.getSource() == frame.getUserScreen().getBtnDelete()){
+            } else if (e.getSource() == frame.getUserScreen().getBtnJoin()){
+
+                JOptionPane.showMessageDialog(frame, "Function unavailable");
+
+            } else if (e.getSource() == frame.getUserScreen().getBtnGames()){
+
+                JOptionPane.showMessageDialog(frame, "Function unavailable");
+
+            } else if (e.getSource() == frame.getUserScreen().getBtnHighscore()){
 
                 JOptionPane.showMessageDialog(frame, "Function unavailable");
 

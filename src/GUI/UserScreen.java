@@ -12,11 +12,12 @@ import java.awt.event.ActionListener;
 public class UserScreen extends JPanel{
 
     private JLabel lblInfo;
-    private JButton btnStart;
-    private JButton btnLoad;
-    private JButton btnHighscore;
     private JButton btnCreate;
-    private JButton btnDelete;
+    private JButton btnJoin;
+    private JButton btnGames;
+    private JButton btnHighscore;
+    //private JButton btnCreate;
+    //private JButton btnDelete;
     private JButton btnLogout;
 
     public UserScreen() {
@@ -30,49 +31,41 @@ public class UserScreen extends JPanel{
         lblInfo.setBounds(208, 13, 132, 26);
         add(lblInfo);
 
-        btnStart = new JButton("Start Game");
-        btnStart.setBounds(220, 100, 107, 23);
-        add(btnStart);
-
-        btnLoad = new JButton("Load Game");
-        btnLoad.setBounds(220, 150, 107, 23);
-        add(btnLoad);
-
-        btnHighscore = new JButton("HighScore");
-        btnHighscore.setBounds(220, 200, 107, 23);
-        add(btnHighscore);
-
-        btnCreate = new JButton("Create User");
-        btnCreate.setBounds(220, 250, 107, 23);
+        btnCreate = new JButton("Create Game");
+        btnCreate.setBounds(220, 100, 107, 23);
         add(btnCreate);
 
-        btnDelete = new JButton("Delete User");
-        btnDelete.setBounds(220, 301, 107, 23);
-        add(btnDelete);
+        btnJoin = new JButton("Join Game");
+        btnJoin.setBounds(220, 150, 107, 23);
+        add(btnJoin);
+
+        btnGames = new JButton("Games");
+        btnGames.setBounds(220, 200, 107, 23);
+        add(btnGames);
+
+        btnHighscore = new JButton("Highscore");
+        btnHighscore.setBounds(220, 250, 107, 23);
+        add(btnHighscore);
 
         btnLogout = new JButton("Logout");
         btnLogout.setBounds(404, 407, 84, 23);
         add(btnLogout);
     }
 
-    public JButton getBtnStart() {
-        return btnStart;
-    }
-
-    public JButton getBtnLoad() {
-        return btnLoad;
-    }
-
-    public JButton getBtnHighscore() {
-        return btnHighscore;
-    }
-
     public JButton getBtnCreate() {
         return btnCreate;
     }
 
-    public JButton getBtnDelete() {
-        return btnDelete;
+    public JButton getBtnJoin() {
+        return btnJoin;
+    }
+
+    public JButton getBtnGames(){
+        return btnGames;
+    }
+
+    public JButton getBtnHighscore() {
+        return btnHighscore;
     }
 
     public JButton getBtnLogout() {
@@ -80,11 +73,10 @@ public class UserScreen extends JPanel{
     }
 
     public void addActionListener(ActionListener l) {
-        btnStart.addActionListener(l);
-        btnLoad.addActionListener(l);
-        btnHighscore.addActionListener(l);
         btnCreate.addActionListener(l);
-        btnDelete.addActionListener(l);
+        btnJoin.addActionListener(l);
+        btnGames.addActionListener(l);
+        btnHighscore.addActionListener(l);
         btnLogout.addActionListener(l);
     }
 }
