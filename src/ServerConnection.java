@@ -34,6 +34,7 @@ public class ServerConnection {
     public String get(String path){
 
         Client c = Client.create();
+        
 
     }
 
