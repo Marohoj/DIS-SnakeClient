@@ -1,7 +1,6 @@
 package Logic;
 
 import GUI.ScreenFrame;
-import GUI.UserScreen;
 import SDK.ServerConnection;
 import SDK.User;
 import com.google.gson.Gson;
@@ -11,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 /**
  * Created by Mathias on 30-11-2015.
  */
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,9 +39,7 @@ public class Controller {
 
             if (e.getSource() == frame.getLoginScreen().getBtnLogin()) {
 
-                frame.show(frame.USERSCREEN);
-
-                //JOptionPane.showMessageDialog(frame, "Wrong username/password. Please try again.");
+                login(frame, user);
 
             } else if (e.getSource() == frame.getLoginScreen().getBtnClose()) {
 
@@ -57,6 +55,8 @@ public class Controller {
 
             if (e.getSource() == frame.getUserScreen().getBtnLogout()) {
 
+                //frame.getLoginScreen().setTfPassword().setText();
+                //frame.getLoginScreen().setTfUsername().setText();
                 frame.show(frame.LOGIN);
 
             } else if (e.getSource() == frame.getUserScreen().getBtnCreate()) {
@@ -84,13 +84,13 @@ public class Controller {
     public String messageParser(String string, User user) {
 
         JSONParser jsonParser = new JSONParser();
-        String message = new String();
+        String message;
 
         try {
 
             String json = new Gson().toJson(user);
 
-            server.post(json,"login/");
+            server.post(json,"login/", frame);
 
             Object messageObject = jsonParser.parse(string);
             JSONObject jsonObject = (JSONObject) messageObject;
@@ -113,6 +113,39 @@ public class Controller {
 
     }
 
-    
+    public void  login(ScreenFrame frame, User user){
+
+        String username = frame.getLoginScreen().getTfUsername().getText();
+        String password = frame.getLoginScreen().getTfPassword().getText();
+
+        if(!username.equals("") & !password.equals("")){
+
+            this.user.setUsername(username);
+            this.user.setPassword(password);
+
+            String json = new Gson().toJson(this.user);
+
+            String message = messageParser((server.post(json, "login/", frame)), this.user);
+
+            if(message.equals("Login successful")) {
+
+                messageParser(server.get("users/"+ this.user.getId()+"/"), this.user);
+
+                frame.show(frame.USERSCREEN);
+
+            } else if (message.equals("Wrong username or password")) {
+
+                JOptionPane.showMessageDialog(frame, "Wrong username or password. Please try again",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
+            } else if (message.equals("Error in JSON")) {
+
+                JOptionPane.showMessageDialog(frame, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        }
+
+    }
 
 }

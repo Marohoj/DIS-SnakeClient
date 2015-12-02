@@ -1,8 +1,11 @@
 package SDK;
 
+import GUI.ScreenFrame;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+
+import java.awt.*;
 
 /**
  * Created by Mathias on 30-11-2015.
@@ -32,7 +35,7 @@ public class ServerConnection {
         return output;
     }
 
-    public String post(String json, String path){
+    public String post(String json, String path, ScreenFrame frame){
 
         Client c = Client.create();
 
