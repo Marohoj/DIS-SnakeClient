@@ -1,3 +1,5 @@
+package SDK;
+
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -42,6 +44,5 @@ public class ServerConnection {
 
         return output;
     }
-
 
 }
