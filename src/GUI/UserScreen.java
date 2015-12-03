@@ -14,7 +14,7 @@ public class UserScreen extends JPanel{
     private JLabel lblInfo;
     private JButton btnCreate;
     private JButton btnJoin;
-    private JButton btnGames;
+    private JButton btnDelete;
     private JButton btnHighscore;
     //private JButton btnCreate;
     //private JButton btnDelete;
@@ -39,9 +39,9 @@ public class UserScreen extends JPanel{
         btnJoin.setBounds(220, 150, 107, 23);
         add(btnJoin);
 
-        btnGames = new JButton("Games");
-        btnGames.setBounds(220, 200, 107, 23);
-        add(btnGames);
+        btnDelete = new JButton("Delete Game");
+        btnDelete.setBounds(220, 200, 107, 23);
+        add(btnDelete);
 
         btnHighscore = new JButton("Highscore");
         btnHighscore.setBounds(220, 250, 107, 23);
@@ -60,8 +60,8 @@ public class UserScreen extends JPanel{
         return btnJoin;
     }
 
-    public JButton getBtnGames(){
-        return btnGames;
+    public JButton getBtnDelete(){
+        return btnDelete;
     }
 
     public JButton getBtnHighscore() {
@@ -75,7 +75,7 @@ public class UserScreen extends JPanel{
     public void addActionListener(ActionListener l) {
         btnCreate.addActionListener(l);
         btnJoin.addActionListener(l);
-        btnGames.addActionListener(l);
+        btnDelete.addActionListener(l);
         btnHighscore.addActionListener(l);
         btnLogout.addActionListener(l);
     }

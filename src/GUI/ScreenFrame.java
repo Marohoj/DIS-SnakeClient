@@ -13,9 +13,17 @@ import javax.swing.border.EmptyBorder;
 public class ScreenFrame extends JFrame {
     public final String LOGIN = "login";
     public final String USERSCREEN = "userscreen";
+    public final String CREATE = "create";
+    public final String JOIN = "join";
+    public final String DELETE = "delete";
+    public final String HIGHSCORE = "Highscore";
 
     private LoginScreen login;
     private UserScreen userscreen;
+    private CreateScreen create;
+    private JoinScreen join;
+    private DeleteScreen delete;
+    private ScoreScreen highscore;
 
     private JPanel contentPane;
     private CardLayout c;
@@ -44,6 +52,30 @@ public class ScreenFrame extends JFrame {
         userscreen.setLayout(null);
         contentPane.add(userscreen, USERSCREEN);
 
+        create = new CreateScreen();
+        create.setBackground(new Color(255, 255, 255));
+        create.setBounds(100, 100, 600, 500);
+        create.setLayout(null);
+        contentPane.add(create,CREATE);
+
+        join = new JoinScreen();
+        join.setBackground(new Color(255, 255, 255));
+        join.setBounds(100, 100, 600, 500);
+        join.setLayout(null);
+        contentPane.add(join, JOIN);
+
+        delete = new DeleteScreen();
+        delete.setBackground(new Color(255, 255, 255));
+        delete.setBounds(100, 100, 600, 500);
+        delete.setLayout(null);
+        contentPane.add(delete, DELETE);
+
+        highscore = new ScoreScreen();
+        highscore.setBackground(new Color(255,255,255));
+        highscore.setBounds(100,100,600,500);
+        highscore.setLayout(null);
+        contentPane.add(highscore,HIGHSCORE);
+
         c = (CardLayout) getContentPane().getLayout();
     }
 
@@ -54,6 +86,14 @@ public class ScreenFrame extends JFrame {
     public UserScreen getUserScreen(){
         return userscreen;
     }
+
+    public CreateScreen getCreate(){ return create;}
+
+    public JoinScreen getJoin() { return join;}
+
+    public DeleteScreen getDelete() {return delete;}
+
+    public ScoreScreen getHighscore() {return highscore;}
 
     public void show(String card){
         c.show(this.getContentPane(), card);

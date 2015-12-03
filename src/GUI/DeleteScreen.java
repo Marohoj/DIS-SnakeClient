@@ -7,24 +7,24 @@ import java.awt.event.ActionListener;
 /**
  * Created by Mathias on 01-12-2015.
  */
-public class JoinScreen extends JPanel {
+public class DeleteScreen extends JPanel {
 
-    private JButton btnJoin;
+    private JButton btnDelete;
     private JButton btnClose;
     private JLabel lblGameName;
     private JLabel lblCreated;
-    private JList listGames;
     private JTable tableGames;
+    private JList listGames;
 
-    public JoinScreen(){
+    public DeleteScreen(){
 
         setBackground(Color.LIGHT_GRAY);
         setLayout(null);
         setBounds(100, 100, 600, 500);
 
-        btnJoin = new JButton("Join game");
-        btnJoin.setBounds(175,430,109,19);
-        add(btnJoin);
+        btnDelete = new JButton("Delete game");
+        btnDelete.setBounds(175,430,109,19);
+        add(btnDelete);
 
         btnClose = new JButton("Return");
         btnClose.setBounds(296,430,109,19);
@@ -47,8 +47,8 @@ public class JoinScreen extends JPanel {
 
     }
 
-    public JButton getBtnJoin() {
-        return btnJoin;
+    public JButton getBtnDelete() {
+        return btnDelete;
     }
 
     public JButton getBtnClose() {
@@ -56,9 +56,14 @@ public class JoinScreen extends JPanel {
     }
 
     public void addActionisteners(ActionListener l){
-        btnJoin.addActionListener(l);
+        btnDelete.addActionListener(l);
         btnClose.addActionListener(l);
         //tableGames.addActionListener(l);
     }
 
+
+
 }
+
+
+

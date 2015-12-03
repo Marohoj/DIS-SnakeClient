@@ -1,4 +1,4 @@
-package SDK;
+package Model;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class User {
 
     //creating variables
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String username;
@@ -25,11 +25,11 @@ public class User {
     //creating get and set method for all the variables, so they can be used by other classes
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

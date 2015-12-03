@@ -2,7 +2,7 @@ package Logic;
 
 import GUI.ScreenFrame;
 import SDK.ServerConnection;
-import SDK.User;
+import Model.User;
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,11 +10,10 @@ import org.json.simple.parser.JSONParser;
 /**
  * Created by Mathias on 30-11-2015.
  */
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Controller {
 
@@ -30,6 +29,10 @@ public class Controller {
 
         frame.getLoginScreen().addActionListener(new LoginAL());
         frame.getUserScreen().addActionListener(new UserAL());
+        frame.getCreate().addActionisteners(new CreateAL());
+        frame.getJoin().addActionisteners(new JoinAL());
+        frame.getDelete().addActionisteners(new DeleteAL());
+      //frame.getHighscore().addActionListeners(new ScoreAL());
 
     }
 
@@ -61,19 +64,66 @@ public class Controller {
 
             } else if (e.getSource() == frame.getUserScreen().getBtnCreate()) {
 
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
+                frame.show(frame.CREATE);
 
             } else if (e.getSource() == frame.getUserScreen().getBtnJoin()) {
 
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
+                frame.show(frame.JOIN);
 
-            } else if (e.getSource() == frame.getUserScreen().getBtnGames()) {
+            } else if (e.getSource() == frame.getUserScreen().getBtnDelete()) {
 
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
+                frame.show(frame.DELETE);
 
             } else if (e.getSource() == frame.getUserScreen().getBtnHighscore()) {
 
-                JOptionPane.showMessageDialog(frame, "Function unavailable");
+                frame.show(frame.HIGHSCORE);
+
+            }
+        }
+    }
+
+    private class CreateAL implements ActionListener {
+
+        public void actionPerformed(ActionEvent e){
+
+            if (e.getSource()== frame.getCreate().getBtnCreate()){
+
+                System.out.print("Hej");
+
+            } else if (e.getSource() == frame.getCreate().getBtnClose()){
+
+                frame.show(frame.USERSCREEN);
+            }
+        }
+    }
+
+    private class JoinAL implements ActionListener {
+
+        public void actionPerformed(ActionEvent e){
+
+            if (e.getSource() == frame.getJoin().getBtnJoin()){
+
+                System.out.print("Hej");
+
+            } else if (e.getSource() == frame.getJoin().getBtnClose()) {
+
+                frame.show(frame.USERSCREEN);
+
+            }
+        }
+    }
+
+    private class DeleteAL implements ActionListener {
+
+        public void actionPerformed(ActionEvent e){
+
+            if (e.getSource() == frame.getDelete().getBtnDelete()){
+
+                System.out.print("Hej");
+
+            } else if (e.getSource() == frame.getDelete().getBtnClose()) {
+
+                frame.show(frame.DELETE);
 
             }
         }
@@ -98,9 +148,9 @@ public class Controller {
             message = ((String) (jsonObject.get("message")));
 
 
-            if (message.equals("Login succesful")){
+            if (message.equals("Login successful")){
 
-                user.setId((int) (jsonObject.get("userid")));
+                user.setId((long)(jsonObject.get("userid")));
             }
 
             return message;
