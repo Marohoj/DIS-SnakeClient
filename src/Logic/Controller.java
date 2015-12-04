@@ -132,7 +132,14 @@ public class Controller {
 
             if (e.getSource() == frame.getDelete().getBtnDelete()){
 
-                DeleteGame(frame, currentUser);
+                if (DeleteGame(frame, currentUser)){
+
+                    JOptionPane.showMessageDialog(frame, "Game was deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Game was not deleted!", "FATAL ERROR", JOptionPane.INFORMATION_MESSAGE);
+                }
 
                //frame.getDelete().getTfGameId();
                //frame.getDelete().getTfGamename().setText("");
@@ -364,7 +371,7 @@ public class Controller {
 
     }
 
-    public void DeleteGame(ScreenFrame frame, User user){
+    public boolean DeleteGame(ScreenFrame frame, User user){
 
         try{
             long gameId = frame.getDelete().getTfGameId();
@@ -373,10 +380,9 @@ public class Controller {
 
             //deleteParser(server.delete("games/" + gameId));
 
-            if (!message.equals("Game was deleted")){
+            if (message.equals("Game was deleted")){
 
-                JOptionPane.showMessageDialog(frame, "Game was deleted!"
-                        + game.getName(), "Success!", JOptionPane.INFORMATION_MESSAGE);
+                return true;
 
             }
 
@@ -384,6 +390,7 @@ public class Controller {
             e.printStackTrace();
         }
 
+        return false;
     }
 
 }
