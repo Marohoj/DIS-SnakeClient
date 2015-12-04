@@ -1,6 +1,7 @@
 package Logic;
 
 import GUI.ScreenFrame;
+import GUI.JoinScreen;
 import Model.Game;
 import Model.Gamer;
 import SDK.ServerConnection;
@@ -27,6 +28,7 @@ public class Controller {
     private Game game = new Game();
     private Gamer gamer = new Gamer();
 
+
     public void run() {
 
         server.get("");
@@ -35,9 +37,9 @@ public class Controller {
 
         frame.getLoginScreen().addActionListener(new LoginAL());
         frame.getUserScreen().addActionListener(new UserAL());
-        frame.getCreate().addActionisteners(new CreateAL());
-        frame.getJoin().addActionisteners(new JoinAL());
-        frame.getDelete().addActionisteners(new DeleteAL());
+        frame.getCreate().addActionListeners(new CreateAL());
+        frame.getJoin().addActionListeners(new JoinAL());
+        frame.getDelete().addActionListeners(new DeleteAL());
       //frame.getHighscore().addActionListeners(new ScoreAL());
 
     }
@@ -98,6 +100,9 @@ public class Controller {
 
             } else if (e.getSource() == frame.getCreate().getBtnClose()){
 
+                frame.getCreate().getTfGameName().setText("");
+                frame.getCreate().getTfControls().setText("");
+                frame.getCreate().getTfControls().setText("");
                 frame.show(frame.USERSCREEN);
             }
         }
@@ -109,7 +114,9 @@ public class Controller {
 
             if (e.getSource() == frame.getJoin().getBtnJoin()){
 
-                System.out.print("Hej");
+                //games = server.openGames();
+                //frame.getJoin().tableGameModel(games);
+
 
             } else if (e.getSource() == frame.getJoin().getBtnClose()) {
 
@@ -125,7 +132,10 @@ public class Controller {
 
             if (e.getSource() == frame.getDelete().getBtnDelete()){
 
-                System.out.print("Hej");
+                DeleteGame(frame, currentUser);
+
+               //frame.getDelete().getTfGameId();
+               //frame.getDelete().getTfGamename().setText("");
 
             } else if (e.getSource() == frame.getDelete().getBtnClose()) {
 
@@ -171,12 +181,6 @@ public class Controller {
 
             message = ((String) (jsonObject.get("message")));
 
-
-            if (message.equals("Login successful")){
-
-                user.setId((long)(jsonObject.get("userid")));
-            }
-
             return message;
 
         } catch (Exception e) {
@@ -187,20 +191,47 @@ public class Controller {
 
     }
 
+    public String loginParser(String string, User user){
+
+        JSONParser jsonParser = new JSONParser();
+        String message;
+
+        try {
+
+            Object messageObject = jsonParser.parse(string);
+            JSONObject jsonObject = (JSONObject) messageObject;
+
+            message = ((String) (jsonObject.get("message")));
+
+            if (message.equals("Login successful")){
+
+                user.setId((long) jsonObject.get("userid"));
+
+            }
+
+            return message;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public String createParser(String string){
 
         JSONParser jsonParser = new JSONParser();
-        String gname = new String();
+        String gameName;
 
         try {
             Object object = jsonParser.parse(string);
             JSONObject jsonObject = (JSONObject) object;
 
-            gname = ((String) jsonObject.get("gamename"));
+            gameName = ((String) jsonObject.get("name"));
 
-            game.setName(gname);
+            game.setName(gameName);
 
-            return gname;
+            return gameName;
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -210,10 +241,56 @@ public class Controller {
     }
 
     public String joinParser(String string){
-        return string;
+
+        JSONParser jsonParser = new JSONParser();
+        String gameId;
+
+
+        /*try {
+            Object object = jsonParser.parse(string);
+            JSONObject jsonObject = (JSONObject) object;
+
+            gameId = ((String) jsonObject.get("gameid"));
+
+            String message = server.get()
+
+            if (message.equals("Game was joined")){
+
+                server.get(json, path)
+
+            } else if (message.equals("Game closed")){
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }*/
+
+        return null;
     }
 
-    //public String deleteParser
+    public String deleteParser (String string){
+
+        JSONParser jsonParser = new JSONParser();
+        String gameId;
+
+        try {
+
+            Object object = jsonParser.parse(string);
+            JSONObject jsonObject = (JSONObject) object;
+
+            gameId = ((String) jsonObject.get("gameid"));
+
+            return gameId;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 
     public void  login(ScreenFrame frame){
 
@@ -226,8 +303,7 @@ public class Controller {
             user.setPassword(password);
 
             String json = new Gson().toJson(user);
-
-            String message = messageParser((server.post(json, "login/", frame)), user);
+            String message = loginParser((server.post(json, "login/", frame)), user);
 
             if(message.equals("Login successful")) {
 
@@ -254,31 +330,58 @@ public class Controller {
 
     public void CreateGame(ScreenFrame frame, Gamer gamer, User currentUser){
 
-        String gamename = frame.getCreate().getTfGameName().getText();
-        int mapSize = frame.getCreate().getTfMapSize();
-        String controls = frame.getCreate().getTfControls().getText();
+        try {
+            String gamename = frame.getCreate().getTfGameName().getText();
+            int mapSize = frame.getCreate().getTfMapSize();
+            String controls = frame.getCreate().getTfControls().getText();
 
-        if (!controls.equals("") && mapSize != 0 && !gamename.equals("")) {
+            if (!controls.equals("") && mapSize != 0 && !gamename.equals("")) {
 
-            gamer.setControls(controls);
-            gamer.setId(currentUser.getId());
-            game.setHost(gamer);
+                gamer.setControls(controls);
+                gamer.setId(currentUser.getId());
+                game.setHost(gamer);
 
-            game.setName(gamename);
-            game.setMapSize(mapSize);
+                game.setName(gamename);
+                game.setMapSize(mapSize);
 
-            String json = new Gson().toJson(game);
-            String message = createParser(server.post(json,"games/",frame));
+                String json = new Gson().toJson(game);
+                String message = createParser(server.post(json,"games/",frame));
 
-            //System.out.print(game.getName() + " " + gamer.getControls() + " " + game.getMapSize() + " " + gamer.getId());
+                //System.out.print(game.getName() + " " + gamer.getControls() + " " + game.getMapSize() + " " + gamer.getId());
 
-            if (message.equals(game.getName())){
+                if (message.equals(game.getName())){
 
-                JOptionPane.showMessageDialog(frame, "Game was created!\nIt's called "
+                    JOptionPane.showMessageDialog(frame, "Game was created!\nIt's called "
+                            + game.getName(), "Success!", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void DeleteGame(ScreenFrame frame, User user){
+
+        try{
+            long gameId = frame.getDelete().getTfGameId();
+
+            String message = messageParser(server.delete("games/" + gameId), user);
+
+            //deleteParser(server.delete("games/" + gameId));
+
+            if (!message.equals("Game was deleted")){
+
+                JOptionPane.showMessageDialog(frame, "Game was deleted!"
                         + game.getName(), "Success!", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
     }

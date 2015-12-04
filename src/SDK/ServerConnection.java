@@ -1,11 +1,14 @@
 package SDK;
 
 import GUI.ScreenFrame;
+import Logic.Controller;
+import GUI.JoinScreen;
+
+import Model.Game;
+import com.google.gson.Gson;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
-
-import java.awt.*;
 
 /**
  * Created by Mathias on 30-11-2015.
@@ -50,5 +53,20 @@ public class ServerConnection {
 
         return "";
     }
+
+    public String delete(String path){
+
+        Client c = Client.create();
+
+        WebResource wResource = c.resource(getHost() + ":" + getPort() + "/api/" + path);
+        ClientResponse cResponse = wResource.type("application/json").delete(ClientResponse.class);
+
+        String output = cResponse.getEntity(String.class);
+        System.out.println(output);
+
+        return output;
+
+    }
+
 
 }

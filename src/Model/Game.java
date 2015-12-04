@@ -8,7 +8,7 @@ import java.sql.Date;
 
 public class Game {
     //Creating the variables needed for the game
-    private int gameId;
+    private long gameId;
     private Gamer winner;
     private String name;
     private Gamer host;
@@ -44,11 +44,11 @@ public class Game {
     }
 
     //Creating get/set method for all the variables, so they can be used by other classes
-    public int getGameId(){
+    public long getGameId(){
         return gameId;
     }
 
-    public void setGameId(int gameId){
+    public void setGameId(long gameId){
         this.gameId = gameId;
     }
 

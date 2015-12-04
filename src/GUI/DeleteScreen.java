@@ -11,10 +11,9 @@ public class DeleteScreen extends JPanel {
 
     private JButton btnDelete;
     private JButton btnClose;
-    private JLabel lblGameName;
-    private JLabel lblCreated;
-    private JTable tableGames;
-    private JList listGames;
+    private JLabel lblDeleteGames;
+    private JLabel lblGameId;
+    private JTextField tfGameId;
 
     public DeleteScreen(){
 
@@ -23,27 +22,24 @@ public class DeleteScreen extends JPanel {
         setBounds(100, 100, 600, 500);
 
         btnDelete = new JButton("Delete game");
-        btnDelete.setBounds(175,430,109,19);
+        btnDelete.setBounds(178,408,109,19);
         add(btnDelete);
 
         btnClose = new JButton("Return");
-        btnClose.setBounds(296,430,109,19);
+        btnClose.setBounds(296,408,109,19);
         add(btnClose);
 
-        lblGameName = new JLabel("Game name");
-        lblGameName.setBounds(122,59,75,19);
-        add(lblGameName);
+        lblDeleteGames = new JLabel("Delete games");
+        lblDeleteGames.setBounds(243, 58, 85, 25);
+        add(lblDeleteGames);
 
-        lblCreated = new JLabel("Created");
-        lblCreated.setBounds(383,52,63,32);
-        add(lblCreated);
+        lblGameId = new JLabel("Game ID:");
+        lblGameId.setBounds(221, 187, 56, 16);
+        add(lblGameId);
 
-        tableGames = new JTable();
-        add(tableGames);
-
-        listGames = new JList();
-        listGames.setBounds(62, 91, 473, 277);
-        add(listGames);
+        tfGameId = new JTextField();
+        tfGameId.setBounds(289, 184, 116, 22);
+        add(tfGameId);
 
     }
 
@@ -55,13 +51,12 @@ public class DeleteScreen extends JPanel {
         return btnClose;
     }
 
-    public void addActionisteners(ActionListener l){
-        btnDelete.addActionListener(l);
-        btnClose.addActionListener(l);
-        //tableGames.addActionListener(l);
+    public long getTfGameId(){
+        return Long.parseLong(tfGameId.getText());
     }
 
+    public void addActionListeners(ActionListener l){
+        btnDelete.addActionListener(l);
+        btnClose.addActionListener(l);
+    }
 }
-
-
-

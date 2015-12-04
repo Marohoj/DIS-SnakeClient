@@ -2,9 +2,11 @@ package GUI;
 
 import Logic.ClientMethods;
 import Logic.Controller;
+import Model.Game;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -13,11 +15,12 @@ import java.awt.event.ActionListener;
  */
 public class JoinScreen extends JPanel {
 
+    ClientMethods cm = new ClientMethods();
     private JButton btnJoin;
     private JButton btnClose;
     private JLabel lblGameName;
     private JLabel lblCreated;
-    private JList listGames;;
+    private JTable tableGames;
 
     public JoinScreen(){
 
@@ -41,12 +44,10 @@ public class JoinScreen extends JPanel {
         lblCreated.setBounds(383,52,63,32);
         add(lblCreated);
 
-        listGames = new JList();
-        listGames.setPreferredSize(new Dimension(473,277));
-        listGames.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listGames.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        listGames.setVisibleRowCount(-1);
-        add(listGames);
+        //tableGames = new JTable(cm.getData(), cm.getColumnNames());
+        tableGames = new JTable(new DefaultTableModel(new Object[]{"Game Id", "Gamename", "MapSize", "Hosted"}, 0));
+        tableGames.setBounds(61, 86, 490, 312);
+        add(tableGames);
 
     }
 
@@ -58,7 +59,15 @@ public class JoinScreen extends JPanel {
         return btnClose;
     }
 
-    public void addActionisteners(ActionListener l){
+    public void tableGameModel (Game[] games){
+        DefaultTableModel tableModel = (DefaultTableModel) tableGames.getModel();
+        tableModel.setRowCount(0);
+        for (Game game:games){
+            tableModel.addRow(new Object[]{game.getName(),game.getMapSize(),game.getCreated()});
+        }
+    }
+
+    public void addActionListeners(ActionListener l){
         btnJoin.addActionListener(l);
         btnClose.addActionListener(l);
         //tableGames.addActionListener(l);

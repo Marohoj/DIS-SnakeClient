@@ -12,7 +12,7 @@ public class CreateScreen extends JPanel {
     private JButton btnCreate;
     private JButton btnClose;
     private JLabel lblGameName;
-    private JLabel lblMapsize;
+    private JLabel lblMapSize;
     private JLabel lblControls;
     private JTextField TfGameName;
     private JTextField TfMapSize;
@@ -52,9 +52,9 @@ public class CreateScreen extends JPanel {
         lblControls.setBounds(186, 205, 52, 16);
         add(lblControls);
 
-        lblMapsize = new JLabel("Mapsize:");
-        lblMapsize.setBounds(187, 255, 51, 16);
-        add(lblMapsize);
+        lblMapSize = new JLabel("Mapsize:");
+        lblMapSize.setBounds(187, 255, 51, 16);
+        add(lblMapSize);
 
     }
 
@@ -71,7 +71,6 @@ public class CreateScreen extends JPanel {
     }
 
     public int getTfMapSize() {
-
         return Integer.parseInt(TfMapSize.getText());
 
     }
@@ -80,7 +79,7 @@ public class CreateScreen extends JPanel {
         return TfControls;
     }
 
-    public void addActionisteners(ActionListener l){
+    public void addActionListeners(ActionListener l){
         btnCreate.addActionListener(l);
         btnClose.addActionListener(l);
     }
