@@ -18,7 +18,7 @@ public class User {
     private Date created;
     private String status;
     private String email;
-    private int type;
+    private long type;
 
     public User () {}
 
@@ -89,11 +89,11 @@ public class User {
         this.email = email;
     }
 
-    public int getType() {
+    public long getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(long type) {
         this.type = type;
     }
 }

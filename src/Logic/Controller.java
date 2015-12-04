@@ -135,6 +135,28 @@ public class Controller {
         }
     }
 
+    public void userParser (String string, User user){
+
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+
+            Object messageObject = jsonParser.parse(string);
+            JSONObject jsonObject = (JSONObject) messageObject;
+
+            user.setFirstName((String) jsonObject.get("firstName"));
+            user.setLastName((String) jsonObject.get("lastName"));
+            user.setUsername((String) jsonObject.get("username"));
+            user.setStatus((String) jsonObject.get("status"));
+            user.setEmail((String) jsonObject.get("email"));
+            user.setType((long) jsonObject.get("type"));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //Creates parser method to parse messages sent from server to client
     //
     public String messageParser(String string, User user) {
@@ -143,10 +165,6 @@ public class Controller {
         String message;
 
         try {
-
-            String json = new Gson().toJson(user);
-
-            server.post(json,"login/", frame);
 
             Object messageObject = jsonParser.parse(string);
             JSONObject jsonObject = (JSONObject) messageObject;
@@ -195,7 +213,7 @@ public class Controller {
         return string;
     }
 
-    public String deleteParser{String string}
+    //public String deleteParser
 
     public void  login(ScreenFrame frame){
 
@@ -213,9 +231,9 @@ public class Controller {
 
             if(message.equals("Login successful")) {
 
-                User currentUser = user;
+                currentUser = user;
 
-                messageParser(server.get("users/"+ currentUser.getId()+"/"), currentUser);
+                userParser(server.get("users/"+ currentUser.getId()+"/"), currentUser);
 
                 frame.show(frame.USERSCREEN);
 
@@ -254,7 +272,12 @@ public class Controller {
 
             //System.out.print(game.getName() + " " + gamer.getControls() + " " + game.getMapSize() + " " + gamer.getId());
 
-            
+            if (message.equals(game.getName())){
+
+                JOptionPane.showMessageDialog(frame, "Game was created!\nIt's called "
+                        + game.getName(), "Success!", JOptionPane.INFORMATION_MESSAGE);
+
+            }
 
         }
 
