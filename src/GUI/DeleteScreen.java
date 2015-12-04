@@ -61,8 +61,6 @@ public class DeleteScreen extends JPanel {
         //tableGames.addActionListener(l);
     }
 
-
-
 }
 
 

@@ -1,6 +1,10 @@
 package GUI;
 
+import Logic.ClientMethods;
+import Logic.Controller;
+
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -13,8 +17,7 @@ public class JoinScreen extends JPanel {
     private JButton btnClose;
     private JLabel lblGameName;
     private JLabel lblCreated;
-    private JList listGames;
-    private JTable tableGames;
+    private JList listGames;;
 
     public JoinScreen(){
 
@@ -38,11 +41,11 @@ public class JoinScreen extends JPanel {
         lblCreated.setBounds(383,52,63,32);
         add(lblCreated);
 
-        tableGames = new JTable();
-        add(tableGames);
-
         listGames = new JList();
-        listGames.setBounds(62, 91, 473, 277);
+        listGames.setPreferredSize(new Dimension(473,277));
+        listGames.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listGames.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        listGames.setVisibleRowCount(-1);
         add(listGames);
 
     }

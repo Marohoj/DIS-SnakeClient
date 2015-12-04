@@ -44,8 +44,11 @@ public class ServerConnection {
 
         String output = cResponse.getEntity(String.class);
         System.out.println(output);
+        if (cResponse != null) {
+            return output;
+        }
 
-        return output;
+        return "";
     }
 
 }

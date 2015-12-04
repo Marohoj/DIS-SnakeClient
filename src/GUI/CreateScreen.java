@@ -70,8 +70,10 @@ public class CreateScreen extends JPanel {
         return TfGameName;
     }
 
-    public JTextField getTfMapSize() {
-        return TfMapSize;
+    public int getTfMapSize() {
+
+        return Integer.parseInt(TfMapSize.getText());
+
     }
 
     public JTextField getTfControls() {
@@ -81,8 +83,5 @@ public class CreateScreen extends JPanel {
     public void addActionisteners(ActionListener l){
         btnCreate.addActionListener(l);
         btnClose.addActionListener(l);
-        TfGameName.addActionListener(l);
-        TfMapSize.addActionListener(l);
-        TfMapSize.addActionListener(l);
     }
 }
