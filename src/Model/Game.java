@@ -16,6 +16,7 @@ public class Game {
     private String status;
     private Date created;
     private int mapSize;
+    private long SnakeMasterId;
 
     public Game(){}
 
@@ -83,4 +84,12 @@ public class Game {
     public void setWinner(Gamer winner) {
         this.winner = winner;
     }
-} //end of class
+
+    public long getSnakeMasterId() {
+        return SnakeMasterId;
+    }
+
+    public void setSnakeMasterId(long snakeMasterId) {
+        SnakeMasterId = snakeMasterId;
+    }
+}

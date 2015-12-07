@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClientMethods {
 
-    public void  Login(ScreenFrame frame, ServerConnection server, User currentUser, User user, Parsers parser){
+    public User Login(ScreenFrame frame, ServerConnection server, User currentUser, Parsers parser){
 
         String username = frame.getLoginScreen().getTfUsername().getText();
         String password = frame.getLoginScreen().getTfPassword().getText();
@@ -23,6 +23,8 @@ public class ClientMethods {
         try {
 
             if(!username.equals("") & !password.equals("")) {
+
+                User user = new User();
 
                 user.setUsername(username);
                 user.setPassword(password);
@@ -37,6 +39,8 @@ public class ClientMethods {
                     parser.userParser(server.get("users/" + currentUser.getId() + "/"), currentUser);
 
                     frame.show(frame.USERSCREEN);
+
+                    return currentUser;
 
                 } else if (message.equals("Wrong username or password")) {
 
@@ -55,17 +59,23 @@ public class ClientMethods {
             e.printStackTrace();
         }
 
+        return null;
     }
 
-    public void CreateGame(ScreenFrame frame, ServerConnection server, Game game, Gamer gamer, User currentUser, Parsers parser){
+    public void CreateGame(ScreenFrame frame, ServerConnection server, User currentUser, Parsers parser){
 
         try {
+
+
 
             String gamename = frame.getCreate().getTfGameName().getText();
             int mapSize = frame.getCreate().getTfMapSize();
             String controls = frame.getCreate().getTfControls().getText();
 
             if (!controls.equals("") && mapSize != 0 && !gamename.equals("")) {
+
+                Game game = new Game();
+                Gamer gamer = new Gamer();
 
                 gamer.setControls(controls);
                 gamer.setId(currentUser.getId());
@@ -75,7 +85,7 @@ public class ClientMethods {
                 game.setMapSize(mapSize);
 
                 String json = new Gson().toJson(game);
-                String message = parser.createParser(server.post(json,"games/"), game);
+                String message = parser.createParser(server.post(json,"games/"));
 
                 //System.out.print(game.getName() + " " + gamer.getControls() + " " + game.getMapSize() + " " + gamer.getId());
 
@@ -93,15 +103,47 @@ public class ClientMethods {
         }
     }
 
-    public void JoinGame(ScreenFrame frame){
+    public void JoinGame(ScreenFrame frame, ServerConnection server, Game game, Gamer gamer, User currentUser, Parsers parser){
 
         try {
 
             long gameId = frame.getJoin().getTfGameId();
             String controls = frame.getJoin().getTfControls().getText();
 
+            if(!controls.equals("")){
 
+                gamer.setId(currentUser.getId());
+                gamer.setControls(controls);
+                game.setGameId(gameId);
+                game.setOpponent(gamer);
 
+                String json = new Gson().toJson(game);
+
+                String message = parser.messageParser(server.put("games/join/", json));
+
+                if(message.equals("Game was joined")){
+
+                    Game joined = parser.joinParser(server.put("games/start/", json));
+
+                    joined = parser.joinParser(server.get("game/" + joined.getGameId() +"/"));
+
+                    if (joined.getSnakeMasterId() == currentUser.getId()) {
+
+                        JOptionPane.showMessageDialog(frame, "You joined the game and won!", "WINNER!", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else if (joined.getSnakeMasterId() != currentUser.getId()){
+
+                        JOptionPane.showMessageDialog(frame, "You joined the game and lost!\nBuhuu..", "LOSER", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+
+                } else if (message.equals("Game closed")){
+
+                    JOptionPane.showMessageDialog(frame, "Nope","Nope", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            }
 
         } catch (Exception e){
             e.printStackTrace();

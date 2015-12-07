@@ -137,6 +137,8 @@ public class Controller {
             if (e.getSource() == frame.getJoin().getBtnJoin()) {
 
                 cm.JoinGame(frame, server, game, gamer, currentUser, parser);
+                frame.getJoin().getTfGameId().setText("");
+                frame.getJoin().getTfControls().setText("");
 
 
             } else if (e.getSource() == frame.getJoin().getBtnClose()) {

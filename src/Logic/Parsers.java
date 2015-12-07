@@ -3,6 +3,7 @@ package Logic;
 import Model.Game;
 import Model.Highscore;
 import Model.User;
+import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -100,7 +101,7 @@ public class Parsers {
         return null;
     }
 
-    public String createParser(String string, Game game) {
+    public String createParser(String string) {
 
         JSONParser jsonParser = new JSONParser();
         String gameName;
@@ -111,8 +112,6 @@ public class Parsers {
 
             gameName = ((String) jsonObject.get("name"));
 
-            game.setName(gameName);
-
             return gameName;
 
         } catch (ParseException e) {
@@ -122,33 +121,15 @@ public class Parsers {
         return null;
     }
 
-    public String joinParser(String string) {
+    public Game joinParser(String string) {
 
-        JSONParser jsonParser = new JSONParser();
-        String gameId;
+        try {
 
-        /*try {
-            Object object = jsonParser.parse(string);
-            JSONObject jsonObject = (JSONObject) object;
+            return new Gson().fromJson(string, Game.class);
 
-            gameId = ((String) jsonObject.get("gameid"));
-
-            String message = server.get();
-
-            if (message.equals("Game was joined")) {
-
-                server.get(json, path);
-
-                return null;
-
-            } else if (message.equals("Game closed")) {
-
-
-            }
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
         return null;
 
