@@ -14,6 +14,11 @@ public class Score {
     private Gamer opponent;
     private Game game;
     private int score;
+    private long firstPlace;
+    private long secondPlace;
+    private long thirdPlace;
+    private long fourthPlace;
+    private long fifthPlace;
 
     // Creates constructor
     public Score(int id, Gamer user, Game game, Gamer opponent, int score)
@@ -63,5 +68,45 @@ public class Score {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public long getFirstPlace() {
+        return firstPlace;
+    }
+
+    public void setFirstPlace(long firstPlace) {
+        this.firstPlace = firstPlace;
+    }
+
+    public long getSecondPlace() {
+        return secondPlace;
+    }
+
+    public void setSecondPlace(long secondPlace) {
+        this.secondPlace = secondPlace;
+    }
+
+    public long getThirdPlace() {
+        return thirdPlace;
+    }
+
+    public void setThirdPlace(long thirdPlace) {
+        this.thirdPlace = thirdPlace;
+    }
+
+    public long getFourthPlace() {
+        return fourthPlace;
+    }
+
+    public void setFourthPlace(long fourthPlace) {
+        this.fourthPlace = fourthPlace;
+    }
+
+    public long getFifthPlace() {
+        return fifthPlace;
+    }
+
+    public void setFifthPlace(long fifthPlace) {
+        this.fifthPlace = fifthPlace;
     }
 }
