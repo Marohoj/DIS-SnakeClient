@@ -171,7 +171,7 @@ public class Controller {
 
             if (e.getSource() == frame.getCreate().getBtnCreate()) {
 
-                cm.CreateGame(frame);
+                cm.CreateGame(frame, server, game, gamer,currentUser);
 
             } else if (e.getSource() == frame.getCreate().getBtnClose()) {
 
@@ -207,7 +207,7 @@ public class Controller {
 
             if (e.getSource() == frame.getDelete().getBtnDelete()) {
 
-                if (cm.DeleteGame(frame)) {
+                if (cm.DeleteGame(frame, server)) {
 
                     JOptionPane.showMessageDialog(frame, "Game was deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 

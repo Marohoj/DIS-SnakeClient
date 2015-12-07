@@ -4,6 +4,7 @@ import GUI.ScreenFrame;
 import Model.*;
 import SDK.ServerConnection;
 import com.google.gson.Gson;
+import com.sun.corba.se.spi.activation.Server;
 import com.sun.glass.ui.Screen;
 
 import javax.swing.*;
@@ -13,27 +14,18 @@ import javax.swing.*;
  */
 public class ClientMethods {
 
-    private User user;
-    private User currentUser;
-    private Game game;
-    private Gamer gamer;
-    private Score score;
-    private ServerConnection server;
+    private Controller controller;
 
     public ClientMethods(){
 
-        user = new User();
-        currentUser = new User();
-        game = new Game();
-        score = new Score();
-        server = new ServerConnection();
+        controller = new Controller();
     }
 
 
-    public void CreateGame(ScreenFrame frame){
+
+    public void CreateGame(ScreenFrame frame, ServerConnection server, Game game, Gamer gamer, User currentUser){
 
         try {
-            Controller controller = new Controller();
 
             String gamename = frame.getCreate().getTfGameName().getText();
             int mapSize = frame.getCreate().getTfMapSize();
@@ -67,15 +59,17 @@ public class ClientMethods {
         }
     }
 
+
     public void JoinGame(){
 
 
 
     }
 
-    public boolean DeleteGame(ScreenFrame frame){
+    public boolean DeleteGame(ScreenFrame frame, ServerConnection server){
 
-        Controller controller = new Controller();
+        //Controller controller = new Controller();
+        //ScreenFrame frame = new ScreenFrame();
 
         try{
             long gameId = frame.getDelete().getTfGameId();
@@ -94,4 +88,21 @@ public class ClientMethods {
         return false;
     }
 
+    public void ShowHighscore(ScreenFrame frame, Highscore highscores, ServerConnection server){
+
+        try{
+
+            highscores = controller.scoreParser(server.get("scores/"));
+
+            frame.getHighscore().getLblFirst().setText("#1: " + String.valueOf(highscores.getFirstPlace() + " points"));
+            frame.getHighscore().getLblSecond().setText("#2: " + String.valueOf(highscores.getSecondPlace() + " points"));
+            frame.getHighscore().getLblThird().setText("#3: " + String.valueOf(highscores.getThirdPlace() + " points"));
+            frame.getHighscore().getLblFourth().setText("#4: " + String.valueOf(highscores.getFourthPlace() + " points"));
+            frame.getHighscore().getLblFifth().setText("#5: " + String.valueOf(highscores.getFifthPlace() + " points"));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 }

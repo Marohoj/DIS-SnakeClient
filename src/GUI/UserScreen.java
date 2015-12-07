@@ -16,8 +16,6 @@ public class UserScreen extends JPanel{
     private JButton btnJoin;
     private JButton btnDelete;
     private JButton btnHighscore;
-    //private JButton btnCreate;
-    //private JButton btnDelete;
     private JButton btnLogout;
 
     public UserScreen() {

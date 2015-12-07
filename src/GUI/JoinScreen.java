@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
  */
 public class JoinScreen extends JPanel {
 
-    ClientMethods cm = new ClientMethods();
     private JButton btnJoin;
     private JButton btnClose;
     private JLabel lblGameName;
@@ -45,9 +44,9 @@ public class JoinScreen extends JPanel {
         add(lblCreated);
 
         //tableGames = new JTable(cm.getData(), cm.getColumnNames());
-        tableGames = new JTable(new DefaultTableModel(new Object[]{"Game Id", "Gamename", "MapSize", "Hosted"}, 0));
-        tableGames.setBounds(61, 86, 490, 312);
-        add(tableGames);
+        //tableGames = new JTable(new DefaultTableModel(new Object[]{"Game Id", "Gamename", "MapSize", "Hosted"}, 0));
+        //tableGames.setBounds(61, 86, 490, 312);
+        //add(tableGames);
 
     }
 
@@ -59,13 +58,13 @@ public class JoinScreen extends JPanel {
         return btnClose;
     }
 
-    public void tableGameModel (Game[] games){
+    /*public void tableGameModel (Game[] games){
         DefaultTableModel tableModel = (DefaultTableModel) tableGames.getModel();
         tableModel.setRowCount(0);
         for (Game game:games){
             tableModel.addRow(new Object[]{game.getName(),game.getMapSize(),game.getCreated()});
         }
-    }
+    }*/
 
     public void addActionListeners(ActionListener l){
         btnJoin.addActionListener(l);
