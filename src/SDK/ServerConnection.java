@@ -38,7 +38,7 @@ public class ServerConnection {
         return output;
     }
 
-    public String post(String json, String path, ScreenFrame frame){
+    public String post(String json, String path){
 
         Client c = Client.create();
 
@@ -67,6 +67,5 @@ public class ServerConnection {
         return output;
 
     }
-
 
 }
