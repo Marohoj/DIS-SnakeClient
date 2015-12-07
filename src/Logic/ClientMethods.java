@@ -1,11 +1,10 @@
 package Logic;
 
 import GUI.ScreenFrame;
-import Model.Game;
-import Model.Gamer;
+import Model.*;
 import SDK.ServerConnection;
-import Model.User;
 import com.google.gson.Gson;
+import com.sun.glass.ui.Screen;
 
 import javax.swing.*;
 
@@ -15,18 +14,23 @@ import javax.swing.*;
 public class ClientMethods {
 
     private User user;
+    private User currentUser;
     private Game game;
+    private Gamer gamer;
+    private Score score;
     private ServerConnection server;
 
     public ClientMethods(){
 
         user = new User();
+        currentUser = new User();
         game = new Game();
+        score = new Score();
         server = new ServerConnection();
     }
 
 
-    public void CreateGame(ScreenFrame frame, Gamer gamer, User currentUser){
+    public void CreateGame(ScreenFrame frame){
 
         try {
             Controller controller = new Controller();
@@ -63,25 +67,24 @@ public class ClientMethods {
         }
     }
 
-    public void JoinGame(ScreenFrame frame, User user){
+    public void JoinGame(){
+
+
 
     }
 
-    public boolean DeleteGame(ScreenFrame frame, User user){
+    public boolean DeleteGame(ScreenFrame frame){
+
+        Controller controller = new Controller();
 
         try{
-            Controller controller = new Controller();
-
             long gameId = frame.getDelete().getTfGameId();
 
-            String message = controller.messageParser(server.delete("games/" + gameId), user);
-
-            //deleteParser(server.delete("games/" + gameId));
+            String message = controller.messageParser(server.delete("games/" + gameId));
 
             if (message.equals("Game was deleted")){
 
                 return true;
-
             }
 
         } catch (Exception e){

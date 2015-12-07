@@ -33,7 +33,7 @@ public class JoinScreen extends JPanel {
         add(btnJoin);
 
         btnClose = new JButton("Return");
-        btnClose.setBounds(296,430,109,19);
+        btnClose.setBounds(343, 390, 107, 23);
         add(btnClose);
 
         lblGameName = new JLabel("Game name");

@@ -1,12 +1,8 @@
 package Logic;
 
 import GUI.ScreenFrame;
-import GUI.JoinScreen;
-import Model.Game;
-import Model.Gamer;
-import Model.Score;
+import Model.*;
 import SDK.ServerConnection;
-import Model.User;
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,6 +22,7 @@ public class Controller {
     private User currentUser;
     private ClientMethods cm;
     private Game game;
+    private Highscore highscores;
     private Gamer gamer;
 
     public Controller(){
@@ -35,25 +32,32 @@ public class Controller {
         currentUser = new User();
         cm = new ClientMethods();
         game = new Game();
+        highscores = new Highscore();
         gamer = new Gamer();
+        frame.setVisible(true);
 
     }
 
     public void run() {
 
-        server.get("");
+        try {
 
-        frame.getLoginScreen().addActionListener(new LoginAL());
-        frame.getUserScreen().addActionListener(new UserAL());
-        frame.getCreate().addActionListeners(new CreateAL());
-        frame.getJoin().addActionListeners(new JoinAL());
-        frame.getDelete().addActionListeners(new DeleteAL());
-        //frame.getHighscore().addActionListeners(new ScoreAL());
+            frame.getLoginScreen().addActionListener(new LoginAL());
+            frame.getUserScreen().addActionListener(new UserAL());
+            frame.getCreate().addActionListeners(new CreateAL());
+            frame.getJoin().addActionListeners(new JoinAL());
+            frame.getDelete().addActionListeners(new DeleteAL());
+            frame.getHighscore().addActionListeners(new ScoreAL());
 
-        //frame.show(frame.LOGIN);
+            frame.show(frame.LOGIN);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
-    public void  Login(ScreenFrame frame){
+    public void  Login(){
 
         String username = frame.getLoginScreen().getTfUsername().getText();
         String password = frame.getLoginScreen().getTfPassword().getText();
@@ -96,13 +100,31 @@ public class Controller {
 
     }
 
+    public void ShowHighscore(){
+
+        try{
+
+            Highscore highscores = scoreParser(server.get("scores/"));
+
+            frame.getHighscore().getLblFirst().setText("#1: " + String.valueOf(highscores.getFirstPlace() + " points"));
+            frame.getHighscore().getLblSecond().setText("#2: " + String.valueOf(highscores.getSecondPlace() + " points"));
+            frame.getHighscore().getLblThird().setText("#3: " + String.valueOf(highscores.getThirdPlace() + " points"));
+            frame.getHighscore().getLblFourth().setText("#4: " + String.valueOf(highscores.getFourthPlace() + " points"));
+            frame.getHighscore().getLblFifth().setText("#5: " + String.valueOf(highscores.getFifthPlace() + " points"));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     private class LoginAL implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
             if (e.getSource() == frame.getLoginScreen().getBtnLogin()) {
 
-                Login(frame);
+                Login();
 
             } else if (e.getSource() == frame.getLoginScreen().getBtnClose()) {
 
@@ -136,7 +158,7 @@ public class Controller {
 
             } else if (e.getSource() == frame.getUserScreen().getBtnHighscore()) {
 
-                //cm.ShowHighscore();
+                ShowHighscore();
                 frame.show(frame.HIGHSCORE);
 
             }
@@ -149,7 +171,7 @@ public class Controller {
 
             if (e.getSource() == frame.getCreate().getBtnCreate()) {
 
-                cm.CreateGame(frame, gamer, currentUser);
+                cm.CreateGame(frame);
 
             } else if (e.getSource() == frame.getCreate().getBtnClose()) {
 
@@ -185,7 +207,7 @@ public class Controller {
 
             if (e.getSource() == frame.getDelete().getBtnDelete()) {
 
-                if (cm.DeleteGame(frame, currentUser)) {
+                if (cm.DeleteGame(frame)) {
 
                     JOptionPane.showMessageDialog(frame, "Game was deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -240,7 +262,7 @@ public class Controller {
 
     //Creates parser method to parse messages sent from server to client
     //
-    public String messageParser(String string, User user) {
+    public String messageParser(String string) {
 
         JSONParser jsonParser = new JSONParser();
         String message;
@@ -365,24 +387,21 @@ public class Controller {
 
     }
 
-    public Score scoreParser(String string) {
+    public Highscore scoreParser(String string) {
 
         JSONParser jsonParser = new JSONParser();
 
         try {
-
-            Score scores = new Score();
-
             Object object = jsonParser.parse(string);
             JSONObject jsonObject = (JSONObject) object;
 
-            scores.setFirstPlace((long) jsonObject.get("no1"));
-            scores.setSecondPlace((long) jsonObject.get("no2"));
-            scores.setThirdPlace((long) jsonObject.get("no3"));
-            scores.setFourthPlace((long) jsonObject.get("no4"));
-            scores.setFifthPlace((long) jsonObject.get("no5"));
+            highscores.setFirstPlace((long) jsonObject.get("place1"));
+            highscores.setSecondPlace((long) jsonObject.get("place2"));
+            highscores.setThirdPlace((long) jsonObject.get("place3"));
+            highscores.setFourthPlace((long) jsonObject.get("place4"));
+            highscores.setFifthPlace((long) jsonObject.get("place5"));
 
-            return scores;
+            return highscores;
 
         } catch (ParseException e) {
             e.printStackTrace();

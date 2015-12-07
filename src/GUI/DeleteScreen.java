@@ -22,11 +22,11 @@ public class DeleteScreen extends JPanel {
         setBounds(100, 100, 600, 500);
 
         btnDelete = new JButton("Delete game");
-        btnDelete.setBounds(178,408,109,19);
+        btnDelete.setBounds(243, 390, 107, 23);
         add(btnDelete);
 
         btnClose = new JButton("Return");
-        btnClose.setBounds(296,408,109,19);
+        btnClose.setBounds(343, 390, 107, 23);
         add(btnClose);
 
         lblDeleteGames = new JLabel("Delete games");

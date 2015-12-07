@@ -37,13 +37,11 @@ public class ScreenFrame extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new CardLayout(0, 0));
         setContentPane(contentPane);
-        setVisible(true);
 
         login = new LoginScreen();
         login.setBackground(new Color(255, 255, 255));
         login.setBounds(100, 100, 600, 500);
         login.setLayout(null);
-        login.setVisible(true);
         contentPane.add(login, LOGIN);
 
         userscreen = new UserScreen();
