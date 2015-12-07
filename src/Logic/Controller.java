@@ -40,7 +40,7 @@ public class Controller {
         frame.getCreate().addActionListeners(new CreateAL());
         frame.getJoin().addActionListeners(new JoinAL());
         frame.getDelete().addActionListeners(new DeleteAL());
-      //frame.getHighscore().addActionListeners(new ScoreAL());
+        //frame.getHighscore().addActionListeners(new ScoreAL());
 
     }
 
@@ -96,7 +96,7 @@ public class Controller {
 
             if (e.getSource()== frame.getCreate().getBtnCreate()){
 
-                CreateGame(frame, gamer, currentUser);
+                cm.CreateGame(frame, gamer, currentUser);
 
             } else if (e.getSource() == frame.getCreate().getBtnClose()){
 
@@ -132,7 +132,7 @@ public class Controller {
 
             if (e.getSource() == frame.getDelete().getBtnDelete()){
 
-                if (DeleteGame(frame, currentUser)){
+                if (cm.DeleteGame(frame, currentUser)){
 
                     JOptionPane.showMessageDialog(frame, "Game was deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -141,8 +141,7 @@ public class Controller {
                     JOptionPane.showMessageDialog(frame, "Game was not deleted!", "FATAL ERROR", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-               //frame.getDelete().getTfGameId();
-               //frame.getDelete().getTfGamename().setText("");
+                //frame.getDelete().getTfGameId().setText("");
 
             } else if (e.getSource() == frame.getDelete().getBtnClose()) {
 
@@ -333,64 +332,6 @@ public class Controller {
 
         }
 
-    }
-
-    public void CreateGame(ScreenFrame frame, Gamer gamer, User currentUser){
-
-        try {
-            String gamename = frame.getCreate().getTfGameName().getText();
-            int mapSize = frame.getCreate().getTfMapSize();
-            String controls = frame.getCreate().getTfControls().getText();
-
-            if (!controls.equals("") && mapSize != 0 && !gamename.equals("")) {
-
-                gamer.setControls(controls);
-                gamer.setId(currentUser.getId());
-                game.setHost(gamer);
-
-                game.setName(gamename);
-                game.setMapSize(mapSize);
-
-                String json = new Gson().toJson(game);
-                String message = createParser(server.post(json,"games/",frame));
-
-                //System.out.print(game.getName() + " " + gamer.getControls() + " " + game.getMapSize() + " " + gamer.getId());
-
-                if (message.equals(game.getName())){
-
-                    JOptionPane.showMessageDialog(frame, "Game was created!\nIt's called "
-                            + game.getName(), "Success!", JOptionPane.INFORMATION_MESSAGE);
-
-                }
-
-            }
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public boolean DeleteGame(ScreenFrame frame, User user){
-
-        try{
-            long gameId = frame.getDelete().getTfGameId();
-
-            String message = messageParser(server.delete("games/" + gameId), user);
-
-            //deleteParser(server.delete("games/" + gameId));
-
-            if (message.equals("Game was deleted")){
-
-                return true;
-
-            }
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
 }
