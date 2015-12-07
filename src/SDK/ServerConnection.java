@@ -68,4 +68,22 @@ public class ServerConnection {
 
     }
 
+    public String put(String path, String json){
+
+        Client c = Client.create();
+
+        WebResource wResource = c.resource(getHost() + ":" + getPort() + "/api/" + path);
+        ClientResponse cResponse = wResource.type("application/json").put(ClientResponse.class, json);
+
+        String output = cResponse.getEntity(String.class);
+        System.out.println(output);
+        if (cResponse != null) {
+            return output;
+        }
+
+        return "";
+
+
+    }
+
 }
