@@ -1,5 +1,6 @@
 package Logic;
 
+import GUI.JoinScreen;
 import GUI.ScreenFrame;
 import Model.*;
 import SDK.ServerConnection;
@@ -21,7 +22,9 @@ public class Controller {
     private ServerConnection server;
     private Parsers parser;
     private User currentUser;
+    private User user;
     private ClientMethods cm;
+    private JoinScreen js;
     private Game game;
     private Highscore highscores;
     private Gamer gamer;
@@ -32,7 +35,9 @@ public class Controller {
         server = new ServerConnection();
         parser = new Parsers();
         currentUser = new User();
+        user = new User();
         cm = new ClientMethods();
+        js = new JoinScreen();
         game = new Game();
         highscores = new Highscore();
         gamer = new Gamer();
@@ -65,7 +70,7 @@ public class Controller {
 
             if (e.getSource() == frame.getLoginScreen().getBtnLogin()) {
 
-                cm.Login(frame, server, currentUser, parser);
+                cm.Login(frame, server, currentUser, user, parser);
 
             } else if (e.getSource() == frame.getLoginScreen().getBtnClose()) {
 
@@ -155,8 +160,6 @@ public class Controller {
                 } else {
                     JOptionPane.showMessageDialog(frame, "Game was not deleted!", "FATAL ERROR", JOptionPane.INFORMATION_MESSAGE);
                 }
-
-                //frame.getDelete().getTfGameId().setText("");
 
             } else if (e.getSource() == frame.getDelete().getBtnClose()) {
 

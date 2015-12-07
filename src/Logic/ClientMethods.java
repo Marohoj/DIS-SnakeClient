@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClientMethods {
 
-    public void  Login(ScreenFrame frame, ServerConnection server, User currentUser, Parsers parser){
+    public void  Login(ScreenFrame frame, ServerConnection server, User currentUser, User user, Parsers parser){
 
         String username = frame.getLoginScreen().getTfUsername().getText();
         String password = frame.getLoginScreen().getTfPassword().getText();
@@ -24,7 +24,6 @@ public class ClientMethods {
 
             if(!username.equals("") & !password.equals("")) {
 
-                User user = new User();
                 user.setUsername(username);
                 user.setPassword(password);
 
@@ -96,16 +95,19 @@ public class ClientMethods {
 
     public void JoinGame(ScreenFrame frame){
 
+        try {
+
+            long gameId = frame.getJoin().getTfGameId();
+            String controls = frame.getJoin().getTfControls().getText();
 
 
-    }
 
-    public void tableGameModel (Game[] games, JoinScreen js){
-        DefaultTableModel tableModel = (DefaultTableModel) js.getTableGames().getModel();
-        tableModel.setRowCount(0);
-        for (Game game:games){
-            tableModel.addRow(new Object[]{game.getName(),game.getMapSize(),game.getCreated()});
+
+        } catch (Exception e){
+            e.printStackTrace();
         }
+
+
     }
 
     public boolean DeleteGame(ScreenFrame frame, ServerConnection server, Parsers parser){

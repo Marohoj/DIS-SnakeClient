@@ -1,12 +1,6 @@
 package GUI;
 
-import Logic.ClientMethods;
-import Logic.Controller;
-import Model.Game;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -17,9 +11,10 @@ public class JoinScreen extends JPanel {
 
     private JButton btnJoin;
     private JButton btnClose;
-    private JLabel lblGameName;
-    private JLabel lblCreated;
-    private JTable tableGames;
+    private JLabel lblGameId;
+    private JLabel lblControls;
+    private JTextField tfGameId;
+    private JTextField tfControls;
 
     public JoinScreen(){
 
@@ -28,25 +23,34 @@ public class JoinScreen extends JPanel {
         setBounds(100, 100, 600, 500);
 
         btnJoin = new JButton("Join game");
-        btnJoin.setBounds(175,430,109,19);
+        btnJoin.setBounds(173,390,107,23);
         add(btnJoin);
 
         btnClose = new JButton("Return");
-        btnClose.setBounds(343, 390, 107, 23);
+        btnClose.setBounds(303, 390, 107, 23);
         add(btnClose);
 
-        lblGameName = new JLabel("Game name");
-        lblGameName.setBounds(122,59,75,19);
-        add(lblGameName);
+        tfGameId = new JTextField();
+        tfGameId.setBounds(282, 226, 116, 22);
+        add(tfGameId);
 
-        lblCreated = new JLabel("Created");
-        lblCreated.setBounds(383,52,63,32);
-        add(lblCreated);
+        tfControls = new JTextField();
+        tfControls.setBounds(282, 261, 116, 22);
+        add(tfControls);
 
-        //tableGames = new JTable(cm.getData(), cm.getColumnNames());
-        tableGames = new JTable(new DefaultTableModel(new Object[]{"Game Id", "Gamename", "MapSize", "Hosted"}, 0));
-        tableGames.setBounds(61, 86, 490, 312);
-        add(tableGames);
+        lblGameId = new JLabel("Enter Game ID:");
+        lblGameId.setBounds(182, 229, 88, 16);
+        add(lblGameId);
+
+        lblControls = new JLabel("Enter controls:");
+        lblControls.setBounds(182, 264, 88, 16);
+        add(lblControls);
+
+        JLabel lblJoinAGame = new JLabel("Join a game today!");
+        lblJoinAGame.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblJoinAGame.setHorizontalAlignment(SwingConstants.CENTER);
+        lblJoinAGame.setBounds(200, 100, 183, 36);
+        add(lblJoinAGame);
 
     }
 
@@ -58,12 +62,17 @@ public class JoinScreen extends JPanel {
         return btnClose;
     }
 
-    public JTable getTableGames() { return tableGames;}
+    public JTextField getTfControls(){
+        return tfControls;
+    }
+
+    public long getTfGameId(){
+        return Long.parseLong(tfGameId.getText());
+    }
 
     public void addActionListeners(ActionListener l){
         btnJoin.addActionListener(l);
         btnClose.addActionListener(l);
-        //tableGames.addActionListener(l);
-    }
 
+    }
 }
