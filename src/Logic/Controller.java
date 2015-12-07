@@ -70,7 +70,8 @@ public class Controller {
 
             if (e.getSource() == frame.getLoginScreen().getBtnLogin()) {
 
-                cm.Login(frame, server, currentUser, user, parser);
+                currentUser = cm.Login(frame, server, currentUser, parser);
+
 
             } else if (e.getSource() == frame.getLoginScreen().getBtnClose()) {
 
@@ -117,7 +118,7 @@ public class Controller {
 
             if (e.getSource() == frame.getCreate().getBtnCreate()) {
 
-                cm.CreateGame(frame, server, game, gamer, currentUser, parser);
+                cm.CreateGame(frame, server, currentUser, parser);
 
             } else if (e.getSource() == frame.getCreate().getBtnClose()) {
 
@@ -135,8 +136,7 @@ public class Controller {
 
             if (e.getSource() == frame.getJoin().getBtnJoin()) {
 
-                //games = server.openGames();
-                //frame.getJoin().tableGameModel(games);
+                cm.JoinGame(frame, server, game, gamer, currentUser, parser);
 
 
             } else if (e.getSource() == frame.getJoin().getBtnClose()) {
