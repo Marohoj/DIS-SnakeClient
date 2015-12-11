@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+//Class that extends a panel for the cardlayout
 public class UserScreen extends JPanel{
 
     private JLabel lblInfo;
@@ -18,38 +19,48 @@ public class UserScreen extends JPanel{
     private JButton btnHighscore;
     private JButton btnLogout;
 
+    //Constructor class
     public UserScreen() {
 
+        //Sets the background color, layout and bounds for the panel
         setBackground(Color.LIGHT_GRAY);
         setLayout(null);
         setBounds(100, 100, 600, 500);
 
+        //Initiates JLabel
+        //Sets bounds and background color and adds the label to the panel
         lblInfo = new JLabel("SnakeClient DIS 2015");
         lblInfo.setBackground(Color.WHITE);
         lblInfo.setBounds(208, 13, 132, 26);
         add(lblInfo);
 
+        //Initiates JButton for create game
         btnCreate = new JButton("Create Game");
-        btnCreate.setBounds(220, 100, 107, 23);
+        btnCreate.setBounds(220, 100, 115, 23);
         add(btnCreate);
 
+        //Initiates JButton for join game
         btnJoin = new JButton("Join Game");
-        btnJoin.setBounds(220, 150, 107, 23);
+        btnJoin.setBounds(220, 150, 115, 23);
         add(btnJoin);
 
+        //Initiates JButton for delete game
         btnDelete = new JButton("Delete Game");
-        btnDelete.setBounds(220, 200, 107, 23);
+        btnDelete.setBounds(220, 200, 115, 23);
         add(btnDelete);
 
+        //Initiates JButton for highscore
         btnHighscore = new JButton("Highscore");
-        btnHighscore.setBounds(220, 250, 107, 23);
+        btnHighscore.setBounds(220, 250, 115, 23);
         add(btnHighscore);
 
+        //Initiates JButton for Logout
         btnLogout = new JButton("Logout");
-        btnLogout.setBounds(404, 407, 84, 23);
+        btnLogout.setBounds(404, 407, 115, 23);
         add(btnLogout);
     }
 
+    //Creates getters for the buttons to be called in controller class
     public JButton getBtnCreate() {
         return btnCreate;
     }
@@ -70,6 +81,7 @@ public class UserScreen extends JPanel{
         return btnLogout;
     }
 
+    //Adds actionlisteners to buttons which is implemented in controller
     public void addActionListener(ActionListener l) {
         btnCreate.addActionListener(l);
         btnJoin.addActionListener(l);

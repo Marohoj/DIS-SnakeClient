@@ -3,6 +3,7 @@ package Model;
 /**
  * Created by Mathias on 07-12-2015.
  */
+//New class to interact with new highscore methods on the server
 public class Highscore {
     private long firstPlace;
     private long secondPlace;
@@ -10,6 +11,7 @@ public class Highscore {
     private long fourthPlace;
     private long fifthPlace;
 
+    // Creates getters and setters for variables
     public long getFirstPlace() {
         return firstPlace;
     }

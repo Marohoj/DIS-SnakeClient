@@ -8,11 +8,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.util.Date;
-
 /**
  * Created by Mathias on 07-12-2015.
  */
+
+//Class that contains parsers for use in ClientMethods class
 public class Parsers {
 
     public void userParser(String string, User user) {
@@ -35,19 +35,6 @@ public class Parsers {
             e.printStackTrace();
         }
 
-    }
-
-    public void tableParser(String string){
-
-        JSONParser jsonParser = new JSONParser();
-
-        try {
-            Object object = jsonParser.parse(string);
-            JSONObject jsonObject = (JSONObject) object;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     //Creates parser method to parse messages sent from server to client
@@ -135,6 +122,7 @@ public class Parsers {
 
     }
 
+    /*
     public String deleteParser(String string) {
 
         JSONParser jsonParser = new JSONParser();
@@ -156,6 +144,7 @@ public class Parsers {
         return null;
 
     }
+    */
 
     public Highscore scoreParser(String string, Highscore highscores) {
 

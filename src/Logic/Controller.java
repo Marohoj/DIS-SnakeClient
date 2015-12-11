@@ -4,10 +4,6 @@ import GUI.JoinScreen;
 import GUI.ScreenFrame;
 import Model.*;
 import SDK.ServerConnection;
-import com.google.gson.Gson;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -16,18 +12,14 @@ import javax.swing.*;
  * Created by Mathias on 30-11-2015.
  */
 
+//Class that contains ActionListeners for every panel
 public class Controller {
 
     private ScreenFrame frame;
     private ServerConnection server;
     private Parsers parser;
     private User currentUser;
-    private User user;
     private ClientMethods cm;
-    private JoinScreen js;
-    private Game game;
-    private Highscore highscores;
-    private Gamer gamer;
 
     public Controller(){
 
@@ -35,20 +27,17 @@ public class Controller {
         server = new ServerConnection();
         parser = new Parsers();
         currentUser = new User();
-        user = new User();
         cm = new ClientMethods();
-        js = new JoinScreen();
-        game = new Game();
-        highscores = new Highscore();
-        gamer = new Gamer();
         frame.setVisible(true);
 
     }
 
+    //Method that initiates the panel for login and add all the actionlisteners to their respective methods
     public void run() {
 
         try {
 
+            //Adds ActionListeners to respective classes
             frame.getLoginScreen().addActionListener(new LoginAL());
             frame.getUserScreen().addActionListener(new UserAL());
             frame.getCreate().addActionListeners(new CreateAL());
@@ -56,6 +45,7 @@ public class Controller {
             frame.getDelete().addActionListeners(new DeleteAL());
             frame.getHighscore().addActionListeners(new ScoreAL());
 
+            //Shows the LoginScreen
             frame.show(frame.LOGIN);
         }
         catch (Exception e){
@@ -105,7 +95,7 @@ public class Controller {
 
             } else if (e.getSource() == frame.getUserScreen().getBtnHighscore()) {
 
-                cm.ShowHighscore(frame, highscores, server, parser);
+                cm.ShowHighscore(frame, server, parser);
                 frame.show(frame.HIGHSCORE);
 
             }
@@ -136,8 +126,7 @@ public class Controller {
 
             if (e.getSource() == frame.getJoin().getBtnJoin()) {
 
-                cm.JoinGame(frame, server, game, gamer, currentUser, parser);
-                frame.getJoin().getTfGameId().setText("");
+                cm.JoinGame(frame, server, currentUser, parser);
                 frame.getJoin().getTfControls().setText("");
 
 

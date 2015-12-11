@@ -6,7 +6,8 @@ import java.sql.Date;
 /**
  * Created by Mathias on 01-12-2015.
  */
-//
+
+//Mirrored class from server
 public class User {
 
     //creating variables
@@ -22,12 +23,11 @@ public class User {
 
     public User () {}
 
-    //creating get and set method for all the variables, so they can be used by other classes
-
-
     public long getId() {
         return id;
     }
+
+    // Creates getters and setters for variables
 
     public void setId(long id) {
         this.id = id;

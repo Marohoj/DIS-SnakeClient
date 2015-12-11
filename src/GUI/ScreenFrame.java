@@ -5,11 +5,11 @@ package GUI;
  */
 import java.awt.CardLayout;
 import java.awt.Color;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+//Class for frame
 public class ScreenFrame extends JFrame {
     public final String LOGIN = "login";
     public final String USERSCREEN = "userscreen";
@@ -30,6 +30,7 @@ public class ScreenFrame extends JFrame {
 
     public ScreenFrame(){
 
+        //Defines the standard setting for the application frame
         setTitle("Snake Client");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 500);
@@ -37,6 +38,7 @@ public class ScreenFrame extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new CardLayout(0, 0));
         setContentPane(contentPane);
+
 
         login = new LoginScreen();
         login.setBackground(new Color(255, 255, 255));
@@ -74,9 +76,11 @@ public class ScreenFrame extends JFrame {
         highscore.setLayout(null);
         contentPane.add(highscore,HIGHSCORE);
 
+        //Defines the frame layout as a card layout
         c = (CardLayout) getContentPane().getLayout();
     }
 
+    //Creates getters to call the panels from frame
     public LoginScreen getLoginScreen(){
         return login;
     }

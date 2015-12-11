@@ -3,6 +3,8 @@ package Model;
 /**
  * Created by Mathias on 07-12-2015.
  */
+
+//Is never used because of new highscore class
 public class Scores {
 
     private int id;
@@ -12,6 +14,8 @@ public class Scores {
     private int opponentId;
 
     public Scores(){}
+
+    // Creates getters and setters for variables
 
     public int getId() {
         return id;

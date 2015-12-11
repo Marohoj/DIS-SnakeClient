@@ -11,6 +11,7 @@ public class Gamer extends User {
     private String controls;
     private boolean winner;
 
+    // Creates getters and setters for variables
     public boolean isWinner() {
         return winner;
     }

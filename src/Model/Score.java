@@ -8,7 +8,7 @@ package Model;
 // Creates class Score
 public class Score {
 
-    // Declare highScore
+    //Creating variables
     private int id;
     private Gamer user;
     private Gamer opponent;
@@ -25,7 +25,6 @@ public class Score {
     private String fourth;
     private String fifth;
 
-    // Creates constructor
     public Score(int id, Gamer user, Game game, Gamer opponent, int score)
     {
         this.id = id;
@@ -37,7 +36,7 @@ public class Score {
 
     public Score(){}
 
-    // Creates get method which returns the highScore
+    // Creates getters and setters for variables
 
     public Gamer getOpponent() { return opponent; }
 

@@ -6,7 +6,10 @@ import java.sql.Date;
  * Created by Mathias on 02-12-2015.
  */
 
+//Class mirrored from the server
+
 public class Game {
+
     //Creating the variables needed for the game
     private long gameId;
     private Gamer winner;
@@ -20,6 +23,7 @@ public class Game {
 
     public Game(){}
 
+    //Creating getters and setters for all the variables
     public Date getCreated() {
         return created;
     }
@@ -44,7 +48,6 @@ public class Game {
         this.name = name;
     }
 
-    //Creating get/set method for all the variables, so they can be used by other classes
     public long getGameId(){
         return gameId;
     }
@@ -85,6 +88,8 @@ public class Game {
         this.winner = winner;
     }
 
+    //Not from the original server game class. Created to determine a winner by return an id
+    //instead of the premade boolean value
     public long getSnakeMasterId() {
         return SnakeMasterId;
     }
